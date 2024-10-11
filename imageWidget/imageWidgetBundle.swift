@@ -2,7 +2,6 @@
 //  imageWidgetBundle.swift
 //  imageWidget
 //
-//  Created by 王昱淇 on 2024/10/11.
 //
 
 import WidgetKit
@@ -15,5 +14,5 @@ struct imageWidgetBundle: WidgetBundle {
     }
 }
 
-//let image = "baron"
-let imageString = "chihiro"
+//let imageString = "highResImage"
+let imageString = "lowResImage"

@@ -1,3 +1,8 @@
+//
+//  imageWidget.swift
+//  imageWidget
+//
+
 import WidgetKit
 import SwiftUI
 
@@ -11,7 +16,7 @@ struct Provider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        // 加載 App Group 中的圖片名稱
+        // Load the image name from App Group
         let imageName = loadImageNameFromAppGroup() ?? imageString + "001"
         let entry = SimpleEntry(date: Date(), imageName: imageName)
         completion(entry)
@@ -20,13 +25,13 @@ struct Provider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
 
-        // 獲取當前時間
+        // Get the current date
         let currentDate = Date()
 
-        // 從 App Group 加載圖片名稱
+        // Load the image name from App Group
         let imageName = loadImageNameFromAppGroup() ?? imageString + "001"
 
-        // 生成一個時間線，其中每小時顯示一次圖片
+        // Generate a timeline showing the image every hour
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
             let entry = SimpleEntry(date: entryDate, imageName: imageName)
@@ -37,7 +42,7 @@ struct Provider: TimelineProvider {
         completion(timeline)
     }
 
-    // 從 App Group UserDefaults 加載圖片名稱
+    // Load the image name from App Group UserDefaults
     func loadImageNameFromAppGroup() -> String? {
         let userDefaults = UserDefaults(suiteName: appGroupID)
         return userDefaults?.string(forKey: "currentImageName")
@@ -58,19 +63,22 @@ struct imageWidgetEntryView: View {
     
     @Environment(\.widgetFamily) var widgetFamily
     
-    // 使用 @AppStorage 從 App Group 讀取圖片名稱
+    // Use @AppStorage to read the image name from App Group
     @AppStorage("currentImageName", store: UserDefaults(suiteName: "group.kiki.widgetExample")) var imageName: String = imageString + "001"
-    
+    @AppStorage("currentImageSize", store: UserDefaults(suiteName: "group.kiki.widgetExample")) var currentImageSize: Double = 0.0
+
     var body: some View {
         if widgetFamily == .systemSmall {
-            // 小 Widget 顯示圖片名稱和按鈕
+            // Small Widget showing image name and size
             VStack {
-                Text("圖片名稱")
+                Text("Image Name:")
                 Text(imageName)
-                    .font(.headline)
+                Text("Image Size:")
+                Text(String(format: "%.2f MB", currentImageSize))
             }
+            .font(.system(size: 16))
         } else {
-            // 大 Widget 顯示圖片
+            // Large Widget showing the image
             Image(imageName)
                 .resizable()
                 .scaledToFit()
@@ -106,4 +114,3 @@ struct imageWidget: Widget {
 } timeline: {
     SimpleEntry(date: .now, imageName: imageString + "001")
 }
-
