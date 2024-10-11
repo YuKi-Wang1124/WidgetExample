@@ -15,3 +15,5 @@ struct imageWidgetBundle: WidgetBundle {
     }
 }
 
+//let image = "baron"
+let imageString = "chihiro"

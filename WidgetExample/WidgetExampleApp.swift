@@ -15,3 +15,6 @@ struct WidgetExampleApp: App {
         }
     }
 }
+
+//let imageString = "baron"
+let imageString = "chihiro"

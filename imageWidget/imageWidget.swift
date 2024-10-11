@@ -1,25 +1,18 @@
-//
-//  imageWidget.swift
-//  imageWidget
-//
-//  Created by 王昱淇 on 2024/10/11.
-//
-
 import WidgetKit
 import SwiftUI
- 
+
 // MARK: - TimelineProvider
 
 struct Provider: TimelineProvider {
-    let appGroupID = "group.kiki.widgetExample"  
+    let appGroupID = "group.kiki.widgetExample"
 
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), imageName: "baron001")
+        SimpleEntry(date: Date(), imageName: imageString + "001")
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         // 加載 App Group 中的圖片名稱
-        let imageName = loadImageNameFromAppGroup() ?? "baron001"
+        let imageName = loadImageNameFromAppGroup() ?? imageString + "001"
         let entry = SimpleEntry(date: Date(), imageName: imageName)
         completion(entry)
     }
@@ -31,7 +24,7 @@ struct Provider: TimelineProvider {
         let currentDate = Date()
 
         // 從 App Group 加載圖片名稱
-        let imageName = loadImageNameFromAppGroup() ?? "baron001"
+        let imageName = loadImageNameFromAppGroup() ?? imageString + "001"
 
         // 生成一個時間線，其中每小時顯示一次圖片
         for hourOffset in 0 ..< 5 {
@@ -58,22 +51,30 @@ struct SimpleEntry: TimelineEntry {
     let imageName: String
 }
 
-
 // MARK: - imageWidgetEntryView
 
 struct imageWidgetEntryView: View {
     var entry: Provider.Entry
     
+    @Environment(\.widgetFamily) var widgetFamily
+    
     // 使用 @AppStorage 從 App Group 讀取圖片名稱
-    @AppStorage("currentImageName", store: UserDefaults(suiteName: "group.kiki.widgetExample")) var imageName: String = "baron001"  
+    @AppStorage("currentImageName", store: UserDefaults(suiteName: "group.kiki.widgetExample")) var imageName: String = imageString + "001"
     
     var body: some View {
-        VStack {
-            // 顯示從 App Group 中讀取的圖片
+        if widgetFamily == .systemSmall {
+            // 小 Widget 顯示圖片名稱和按鈕
+            VStack {
+                Text("圖片名稱")
+                Text(imageName)
+                    .font(.headline)
+            }
+        } else {
+            // 大 Widget 顯示圖片
             Image(imageName)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 360, height: 160)
+                .frame(width: 400, height: 190)
         }
     }
 }
@@ -96,12 +97,13 @@ struct imageWidget: Widget {
             }
         }
         .configurationDisplayName("My Widget")
-        .description("This widget shows an image from App Group.")
+        .description("This widget shows an image or image name from App Group.")
     }
 }
 
 #Preview(as: .systemSmall) {
     imageWidget()
 } timeline: {
-    SimpleEntry(date: .now, imageName: "baron001")
+    SimpleEntry(date: .now, imageName: imageString + "001")
 }
+

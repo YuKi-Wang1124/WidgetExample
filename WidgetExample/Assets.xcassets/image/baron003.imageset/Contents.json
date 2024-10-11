@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "baron003.jpg",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "baron003 1.jpg",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "baron003 2.jpg",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "pexels-christian-heitz-285904-842711.jpg",
+      "idiom" : "universal"
     }
   ],
   "info" : {
