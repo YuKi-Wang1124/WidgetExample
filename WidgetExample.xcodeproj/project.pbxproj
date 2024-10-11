@@ -17,6 +17,7 @@
 		CC2903742CB93507002FF091 /* imageWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2903732CB93507002FF091 /* imageWidget.swift */; };
 		CC2903762CB93508002FF091 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC2903752CB93508002FF091 /* Assets.xcassets */; };
 		CC29037A2CB93508002FF091 /* imageWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CC29036A2CB93507002FF091 /* imageWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CC2903852CB97707002FF091 /* MemoryCrashWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2903842CB97707002FF091 /* MemoryCrashWidget.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		CC2903752CB93508002FF091 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC2903772CB93508002FF091 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC29037F2CB93510002FF091 /* imageWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = imageWidgetExtension.entitlements; sourceTree = "<group>"; };
+		CC2903842CB97707002FF091 /* MemoryCrashWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCrashWidget.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 			children = (
 				CC2903712CB93507002FF091 /* imageWidgetBundle.swift */,
 				CC2903732CB93507002FF091 /* imageWidget.swift */,
+				CC2903842CB97707002FF091 /* MemoryCrashWidget.swift */,
 				CC2903752CB93508002FF091 /* Assets.xcassets */,
 				CC2903772CB93508002FF091 /* Info.plist */,
 			);
@@ -251,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC2903722CB93507002FF091 /* imageWidgetBundle.swift in Sources */,
+				CC2903852CB97707002FF091 /* MemoryCrashWidget.swift in Sources */,
 				CC2903742CB93507002FF091 /* imageWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
