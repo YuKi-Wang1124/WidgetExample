@@ -10,38 +10,38 @@ import SwiftUI
 
 struct Provider: TimelineProvider {
     let appGroupID = "group.kiki.widgetExample"
-
+    
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), imageName: imageString + "001")
     }
-
+    
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         // Load the image name from App Group
         let imageName = loadImageNameFromAppGroup() ?? imageString + "001"
         let entry = SimpleEntry(date: Date(), imageName: imageName)
         completion(entry)
     }
-
+    
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
-
+        
         // Get the current date
         let currentDate = Date()
-
+        
         // Load the image name from App Group
         let imageName = loadImageNameFromAppGroup() ?? imageString + "001"
-
+        
         // Generate a timeline showing the image every hour
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
             let entry = SimpleEntry(date: entryDate, imageName: imageName)
             entries.append(entry)
         }
-
+        
         let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
-
+    
     // Load the image name from App Group UserDefaults
     func loadImageNameFromAppGroup() -> String? {
         let userDefaults = UserDefaults(suiteName: appGroupID)
@@ -66,7 +66,7 @@ struct imageWidgetEntryView: View {
     // Use @AppStorage to read the image name from App Group
     @AppStorage("currentImageName", store: UserDefaults(suiteName: "group.kiki.widgetExample")) var imageName: String = imageString + "001"
     @AppStorage("currentImageSize", store: UserDefaults(suiteName: "group.kiki.widgetExample")) var currentImageSize: Double = 0.0
-
+    
     var body: some View {
         if widgetFamily == .systemSmall {
             // Small Widget showing image name and size
@@ -76,7 +76,7 @@ struct imageWidgetEntryView: View {
                 Text("Image Size:")
                 Text(String(format: "%.2f MB", currentImageSize))
             }
-            .font(.system(size: 16))
+            .font(.system(size: 14))
         } else {
             // Large Widget showing the image
             Image(imageName)
@@ -92,7 +92,7 @@ struct imageWidgetEntryView: View {
 
 struct imageWidget: Widget {
     let kind: String = "imageWidget"
-
+    
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(iOS 17.0, *) {
